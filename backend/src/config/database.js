@@ -36,8 +36,12 @@ export async function testConnections() {
     await dbLocal.query('SELECT 1');
     console.log('✅ Conexión a BD Local exitosa');
     
-    // Test remote DB (solo si está configurada)
-    if (config.dbRemote.host && config.dbRemote.host !== 'xxx.xxx.xxx.xxx') {
+    // Test remote DB (solo si está configurada con valores reales)
+    const isRemoteConfigured = config.dbRemote.host && 
+                               config.dbRemote.user && 
+                               !config.dbRemote.host.startsWith('xxx');
+    
+    if (isRemoteConfigured) {
       await dbRemote.query('SELECT 1');
       console.log('✅ Conexión a BD Remota exitosa');
     } else {

@@ -20,7 +20,7 @@ export const registerValidation = [
 ];
 
 export const ofertaValidation = [
-  body('codigo').isNumeric().withMessage('Código inválido'),
+  body('codigo').isNumeric().withMessage('El código debe ser numérico'),
   body('detalle').notEmpty().withMessage('Detalle requerido'),
-  body('precio_oferta').isDecimal().withMessage('Precio inválido'),
+  body('precio_oferta').isDecimal().withMessage('El precio debe ser un número decimal válido'),
 ];
