@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import { config } from './config/env.js';
 import { testConnections } from './config/database.js';
 import { errorHandler, notFoundHandler } from './middleware/errorHandler.js';
+import { apiLimiter } from './middleware/rateLimiter.js';
 
 // Import routes - Mobile
 import mobileAuthRoutes from './routes/mobile/auth.js';
@@ -30,6 +31,9 @@ app.use(cors({ origin: config.cors.origin }));
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Rate limiting para todas las rutas de API
+app.use('/api', apiLimiter);
 
 // Health check
 app.get('/health', (req, res) => {
